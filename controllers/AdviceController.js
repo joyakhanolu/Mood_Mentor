@@ -2,8 +2,9 @@ const Advice = require('../models/advice');
 
 // Routes
 const adviceUser = async (req, res) => {
-    const { title, description, category } = req.body;
+    
     try {
+      const { title, description, category } = req.body;
       const newAdvice = new Advice ({
         title,
         description,
@@ -18,4 +19,17 @@ const adviceUser = async (req, res) => {
     }
   };
 
-  module.exports = adviceUser;
+  const getAllAdvice = (req, res) => {
+    Advice.find()
+      .then((advice) => {
+        return res.status(200).json(advice);
+      })
+      .catch((error) => {
+        return res.status(500).json({ error: error.message });
+      });
+  };
+
+  module.exports = {
+    adviceUser, 
+    getAllAdvice,
+  };
