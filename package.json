@@ -3,7 +3,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "mongoose": "^7.0.2"
+    "mongoose": "^7.0.2",
+    "nodemon": "^2.0.21"
   },
   "scripts": {
     "start": "node server.js",
@@ -12,7 +13,6 @@
   "name": "mood",
   "version": "1.0.0",
   "main": "AdviceGenerator.js",
-  "devDependencies": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
