@@ -1,32 +1,59 @@
-const db = require('./utils/db');
-const Advice = require('./models/advice');
+const { MongoClient } = require('mongodb');
 
+const uri = 'mongodb://localhost:5000/advice'; // replace with your own URI
+const client = new MongoClient(uri);
+
+async function run() {
+  try {
+    await client.connect();
+    console.log('Connected to MongoDB');
+
+    // Add your code to insert data into your database here
+
+  } finally {
+    await client.close();
+    console.log('Disconnected from MongoDB');
+  }
+}
+
+run().catch(console.error);
+
+
+// Define the advice data
 const advice = [
   {
-    title: 'Drink water',
-    description: 'Stay hydrated by drinking at least 8 glasses of water a day.',
-    category: 'health',
+    category: "health",
+    advice: [
+      {
+        title: "Eat healthy foods",
+        description: "Eating a healthy diet is important for maintaining good health.",
+      },
+      {
+        title: "Get enough sleep",
+        description: "Getting enough sleep is important for your overall health and well-being.",
+      },
+      {
+        title: "Stay hydrated",
+        description: "Drinking plenty of water is important for maintaining good health.",
+      },
+    ],
   },
   {
-    title: 'Take breaks',
-    description: 'Take short breaks every hour to avoid burnout and improve productivity.',
-    category: 'career',
+    category: "relationship",
+    advice: [
+      {
+        title: "Communicate openly",
+        description: "Open communication is key to a healthy relationship.",
+      },
+      {
+        title: "Practice empathy",
+        description: "Empathy is an important trait for building strong relationships.",
+      },
+      {
+        title: "Make time for each other",
+        description: "Spending quality time together is important for maintaining a strong relationship.",
+      },
+    ],
   },
-  {
-    title: 'Meditate',
-    description: 'Take a few minutes to meditate each day to reduce stress and improve mental clarity.',
-    category: 'lifestyle',
-  },
+  // add more categories and advice as needed
 ];
-
-db.once('open', async () => {
-  try {
-    await Advice.deleteMany();
-    await Advice.insertMany(advice);
-    console.log('Data imported successfully');
-    process.exit();
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
-});
