@@ -29,6 +29,19 @@ const adviceUser = async (req, res) => {
       });
   };
 
+  const updateAdviceById = (req, res) => {
+    const { id } = req.params;
+    const { title, description, category } = req.body;
+    
+    Advice.findById()
+      .then((advice) => {
+        return res.status(200).json(advice);
+      })
+      .catch((error) => {
+        return res.status(500).json({ error: error.message });
+      });
+  };
+
   module.exports = {
     adviceUser, 
     getAllAdvice,
