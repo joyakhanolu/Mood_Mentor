@@ -1,8 +1,8 @@
 const { MongoClient } = require('mongodb');
-const advice = require('./advice'); // replace with your own advice data
+const advice = require('./models/advice'); // replace with your own advice data
 
 async function seedDatabase() {
-  const uri = 'mongodb://localhost:5000/advice'; // replace with your own URI
+  const uri = 'mongodb+srv://joyakhanolu17:kieshakay17@cluster0.miuwnkd.mongodb.net/?retryWrites=true&w=majority'; // replace with your own URI
   const client = new MongoClient(uri);
 
   try {

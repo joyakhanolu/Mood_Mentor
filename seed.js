@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 
-const uri = 'mongodb://localhost:5000/advice'; // replace with your own URI
+const uri = 'mongodb+srv://joyakhanolu17:<password>@cluster0.miuwnkd.mongodb.net/?retryWrites=true&w=majority'; // replace with your own URI
 const client = new MongoClient(uri);
 
 async function run() {
