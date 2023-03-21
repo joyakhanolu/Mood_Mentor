@@ -33,8 +33,11 @@ const adviceUser = async (req, res) => {
     const { id } = req.params;
     const { title, description, category } = req.body;
     
-    Advice.findById()
+    Advice.findByIdAndUpdate(id, { title, description, category }, { new: true })
       .then((advice) => {
+        if (!advice) {
+          return res.status(400).json({ error: 'advice not found' })
+        }
         return res.status(200).json(advice);
       })
       .catch((error) => {
@@ -45,4 +48,5 @@ const adviceUser = async (req, res) => {
   module.exports = {
     adviceUser, 
     getAllAdvice,
+    updateAdviceById,
   };
