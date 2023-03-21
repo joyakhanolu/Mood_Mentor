@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/* import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
 
   const fetchAdvice = async (category) => {
     try {
-      const response = await axios.get(`/api/advice/${category}`);
+      const response = await axios.get(`http://localhost:5000/api/advice/${category}`);
       setAdvice(response.data);
     } catch (error) {
       console.error(error);
@@ -49,4 +49,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; */

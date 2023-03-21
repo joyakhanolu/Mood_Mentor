@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Random Advice Generator</title>
+    <link rel="stylesheet" href="AdviceGenerator.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Random Advice Generator</h1>
+      <label for="category-select">Select a category:</label>
+      <select id="category-select">
+        <option value="health">Health</option>
+        <option value="relationship">Relationship</option>
+        <option value="lifestyle">Lifestyle</option>
+      </select>
+      <button onclick="generateAdvice()">Generate Advice</button>
+      <div id="advice-container"></div>
+    </div>
+    <script>
+        const adviceList = [
+  { category: "health", advice: "Drink plenty of water and eat a balanced diet." },
+  { category: "health", advice: "Get enough sleep and exercise regularly." },
+  { category: "health", advice: "Take breaks often and practice relaxation techniques." },
+  { category: "relationship", advice: "Communicate openly and honestly with your partner." },
+  { category: "relationship", advice: "Listen actively and show empathy towards your partner." },
+  { category: "relationship", advice: "Be willing to compromise and work together towards common goals." },
+  { category: "lifestyle", advice: "Stay organized and prioritize your tasks." },
+  { category: "lifestyle", advice: "Take time for self-care and pursue hobbies you enjoy." },
+  { category: "lifestyle", advice: "Set goals for yourself and work towards achieving them." }
+];
+
+function generateAdvice() {
+  const categorySelect = document.getElementById("category-select");
+  const selectedCategory = categorySelect.value;
+  const filteredAdviceList = adviceList.filter(advice => advice.category === selectedCategory);
+  const randomAdvice = filteredAdviceList[Math.floor(Math.random() * filteredAdviceList.length)].advice;
+  const adviceContainer = document.getElementById("advice-container");
+  adviceContainer.textContent = randomAdvice;
+}
+
+    </script>
+  </body>
+</html>
