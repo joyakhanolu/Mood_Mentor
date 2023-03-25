@@ -1,24 +1,19 @@
-const { MongoClient } = require('mongodb');
-const advice = require('./models/advice'); // replace with your own advice data
+const mongoose = require('mongoose');
+const seedDatabase = require('./seed');
+const Advice = require('./models/advice');
 
-async function seedDatabase() {
-  const uri = 'mongodb+srv://joyakhanolu17:kieshakay17@cluster0.miuwnkd.mongodb.net/?retryWrites=true&w=majority'; // replace with your own URI
-  const client = new MongoClient(uri);
+// Connect to the database
+mongoose.connect('mongodb://localhost:27017/advice_db')
+  .then(async () => {
+    // Seed the database
+    await seedDatabase();
 
-  try {
-    await client.connect();
-    console.log('Connected to MongoDB');
+    // Find all the advice in the database
+    const advice = await Advice.find({});
 
-    const db = client.db();
-    const result = await db.collection('advice').insertMany(advice);
-    console.log(`${result.insertedCount} advice inserted`);
+    console.log(advice);
 
-  } catch(err) {
-    console.error(err);
-  } finally {
-    await client.close();
-    console.log('Disconnected from MongoDB');
-  }
-}
-
-module.exports = seedDatabase;
+    // Disconnect from the database
+    await mongoose.disconnect();
+  })
+  .catch((err) => console.error(err));
