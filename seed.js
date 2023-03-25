@@ -1,59 +1,53 @@
-const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
+const Advice = require('./models/advice');
 
-const uri = 'mongodb+srv://joyakhanolu17:kieshakay17@cluster0.miuwnkd.mongodb.net/?retryWrites=true&w=majority'; // replace with your own URI
-const client = new MongoClient(uri);
+// Your advice data
+const adviceData = [
+  {
+    category: 'Motivation',
+    advice: 'Believe in yourself and all that you are. Know that there is something inside you that is greater than any obstacle.',
+  },
+  {
+    category: 'Motivation',
+    advice: 'Your limitation—it’s only your imagination.',
+  },
+  {
+    category: 'Motivation',
+    advice: 'Push yourself, because no one else is going to do it for you.',
+  },
+  {
+    category: 'Happiness',
+    advice: 'Happiness is not something readymade. It comes from your own actions.',
+  },
+  {
+    category: 'Happiness',
+    advice: 'The happiest people don’t necessarily have the best of everything; they just make the best of everything they have.',
+  },
+  {
+    category: 'Happiness',
+    advice: 'If you want to be happy, do not dwell in the past, do not worry about the future, focus on living fully in the present.',
+  },
+];
 
-async function run() {
+// Function to seed the database
+async function seedDatabase() {
   try {
-    await client.connect();
-    console.log('Connected to MongoDB');
+    // Connect to the database
+    await mongoose.connect('mongodb://localhost:27017/advice_db');
 
-    // Add your code to insert data into your database here
+    // Remove all existing advice data
+    await Advice.deleteMany({});
 
-  } finally {
-    await client.close();
-    console.log('Disconnected from MongoDB');
+    // Add the advice data to the database
+    await Advice.insertMany(adviceData);
+
+    // Disconnect from the database
+    await mongoose.disconnect();
+
+    console.log('Database seeded!');
+  } catch (err) {
+    console.error(err);
   }
 }
 
-run().catch(console.error);
-
-
-// Define the advice data
-const advice = [
-  {
-    category: "health",
-    advice: [
-      {
-        title: "Eat healthy foods",
-        description: "Eating a healthy diet is important for maintaining good health.",
-      },
-      {
-        title: "Get enough sleep",
-        description: "Getting enough sleep is important for your overall health and well-being.",
-      },
-      {
-        title: "Stay hydrated",
-        description: "Drinking plenty of water is important for maintaining good health.",
-      },
-    ],
-  },
-  {
-    category: "relationship",
-    advice: [
-      {
-        title: "Communicate openly",
-        description: "Open communication is key to a healthy relationship.",
-      },
-      {
-        title: "Practice empathy",
-        description: "Empathy is an important trait for building strong relationships.",
-      },
-      {
-        title: "Make time for each other",
-        description: "Spending quality time together is important for maintaining a strong relationship.",
-      },
-    ],
-  },
-  // add more categories and advice as needed
-];
+module.exports = seedDatabase;
